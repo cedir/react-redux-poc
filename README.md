@@ -12,5 +12,5 @@ https://stormpath.com/blog/build-a-redux-powered-react-application
 Otro ejemplo mas completo
 https://github.com/marmelab/javascript-boilerplate
 
-Hace un nuevo ejemplo con caja, incluyendo un listado y un agregar, datos iniciales que salen de un ajax a json estatico.
+https://reactjsnews.com/your-first-redux-app
 
