@@ -4,27 +4,27 @@ var webpack = require('webpack');
 module.exports = {
   quiet: true,
   entry: [
-    './static/js/todo/Todo'
+    './src/js/todo/Todo'
   ],
   output: {
-    path: __dirname + '/dist/static/todo/',
-    filename: 'Todo.min.js',
-    publicPath: '/js/todo/'
+    path: __dirname + '/dist/src/',
+    filename: 'myapp.min.js',
+    publicPath: '/js/'
   },
   module: {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
-      include: path.join(__dirname, './static/js/todo/')
+      include: path.join(__dirname, './src/js/')
     }]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+    /*new webpack.optimize.UglifyJsPlugin({
       minimize: true,
        compress: {
           warnings: false
       }
-    }),
+    }),*/
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     })

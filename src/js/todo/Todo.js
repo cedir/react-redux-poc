@@ -2,18 +2,23 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import todoApp from './TodoReducers';
-import {addTodo, completeTodo} from './TodoActions';
+//import { createStore } from 'redux';
+//import todoApp from './TodoReducers';
+import {addTodo, completeTodo, deleteTodo, clearTodo} from './TodoActions';
+import configureStore from '../app/configureStore.js';
 
 var defaultState = {
   todo: {
-    items: []
+    todo:{  //<-- TODO: ver si es asi o hay que sacar un todo
+        items: [],
+        cool: 1
+    }
   }
 };
 
 
-var store = createStore(todoApp, defaultState);
+//var store = createStore(todoApp, defaultState);
+var store = configureStore(defaultState);  //TODO: hay que sacar el createStore de aca
 
 class AddTodoForm extends React.Component {
   state = {
@@ -69,7 +74,7 @@ class TodoList extends React.Component {
     store.subscribe(() => {
       var state = store.getState();
       this.setState({
-        items: state.todo.items
+        items: state.todo.todo.items
       });
     });
   }

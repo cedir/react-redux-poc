@@ -1,6 +1,6 @@
 
 
-export default function todoApp(state, action) {
+export default function todoApp(state={}, action) {
   switch (action.type) {
     case 'ADD_TODO':
       var items = [].concat(state.todo.items);
