@@ -1,116 +1,70 @@
 
-
-import React from 'react';
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import ReactDOM from 'react-dom';
-//import { createStore } from 'redux';
-//import todoApp from './TodoReducers';
 import {addTodo, completeTodo, deleteTodo, clearTodo} from './TodoActions';
-import configureStore from '../app/configureStore.js';
-
-var defaultState = {
-  todo: {
-    todo:{  //<-- TODO: ver si es asi o hay que sacar un todo
-        items: [],
-        cool: 1
-    }
-  }
-};
 
 
-//var store = createStore(todoApp, defaultState);
-var store = configureStore(defaultState);  //TODO: hay que sacar el createStore de aca
+// ADD TODO form
 
-class AddTodoForm extends React.Component {
-  state = {
-    message: ''
-  };
 
-  onFormSubmit(e) {
-    e.preventDefault();
-    store.dispatch(addTodo(this.state.message));
-    this.setState({ message: '' });
-  }
+let AddTodoForm = ({ dispatch }) => {
+  let input
 
-  onMessageChanged(e) {
-    var message = e.target.value;
-    this.setState({ message: message });
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.onFormSubmit.bind(this)}>
-        <input type="text" placeholder="Todo..." onChange={this.onMessageChanged.bind(this)} value={this.state.message} />
-        <input type="submit" value="Add" />
+  return (
+    <div>
+      <form onSubmit={e => {
+        e.preventDefault()
+        if (!input.value.trim()) {
+          return
+        }
+        dispatch(addTodo(input.value))
+        input.value = ''
+      }}>
+        <input ref={node => {
+          input = node
+        }} />
+        <button type="submit">
+          Add Todo
+        </button>
       </form>
-    );
-  }
+    </div>
+  )
+}
+export const AddTodo = connect()(AddTodoForm)
+
+
+// TODO LIST
+const TodoList = ({ todos, onTodoClick }) => (
+    <ul>
+        {todos.map(todo =>
+            <h1> {todo.message} </h1>
+        )}
+    </ul>
+)
+
+TodoList.propTypes = {
+    todos: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        completed: PropTypes.bool.isRequired,
+        text: PropTypes.string.isRequired
+    }).isRequired).isRequired,
+    onTodoClick: PropTypes.func.isRequired
 }
 
-class TodoItem extends React.Component {
-  onDeleteClick() {
-    store.dispatch(deleteTodo(this.props.index));
-  }
-
-  onCompletedClick() {
-    store.dispatch(completeTodo(this.props.index));
-  }
-
-  render() {
-    return (
-      <li>
-        <a href="#" onClick={this.onCompletedClick.bind(this)} style={{textDecoration: this.props.completed ? 'line-through' : 'none'}}>{this.props.message.trim()}</a>&nbsp;
-        <a href="#" onClick={this.onDeleteClick.bind(this)} style={{textDecoration: 'none'}}>[x]</a>
-      </li>
-    );
-  }
-}
-
-class TodoList extends React.Component {
-  state = {
-    items: []
-  };
-
-  componentWillMount() {
-    store.subscribe(() => {
-      var state = store.getState();
-      this.setState({
-        items: state.todo.todo.items
-      });
-    });
-  }
-
-  render() {
-    var items = [];
-
-    this.state.items.forEach((item, index) => {
-      items.push(<TodoItem
-        key={index}
-        index={index}
-        message={item.message}
-        completed={item.completed}
-      />);
-    });
-
-    if (!items.length) {
-      return (
-        <p>
-          <i>Please add something to do.</i>
-        </p>
-      );
+const mapStateToProps = (state) => {
+    return {
+        todos: state.todo.todo.items
     }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
 
-    return (
-      <ol>{ items }</ol>
-    );
   }
 }
 
-ReactDOM.render(
-  <div>
-    <h1>Todo</h1>
-    <AddTodoForm />
-    <TodoList />
-  </div>,
-  document.getElementById('container')
-);
+export const VisibleTodoList = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TodoList)
 

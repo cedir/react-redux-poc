@@ -1,16 +1,24 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import todoApp from './reducers'
-import App from './components/App'
+import configureStore from './app/configureStore.js';
+import App from './app/App'
 
-let store = createStore(todoApp)
+var defaultState = {
+  todo: {
+    todo:{  //<-- TODO: ver si es asi o hay que sacar un todo
+        items: [],
+        cool: 1
+    }
+  }
+};
+
+var store = configureStore(defaultState);
 
 render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('container')
 )
 

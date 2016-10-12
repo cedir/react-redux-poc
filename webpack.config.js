@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
   quiet: true,
   entry: [
-    './src/js/todo/Todo'
+    './src/js/main'
   ],
   output: {
     path: __dirname + '/dist/src/',
