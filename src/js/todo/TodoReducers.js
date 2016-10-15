@@ -3,6 +3,7 @@
 export default function todoApp(state={}, action) {
   switch (action.type) {
     case 'ADD_TODO':
+        console.log("add todo");
       var items = [].concat(state.todo.items);
       return Object.assign({}, state, {
         todo: {
@@ -14,6 +15,7 @@ export default function todoApp(state={}, action) {
       });
 
     case 'COMPLETE_TODO':
+        console.log("complete todo");
       var items = [].concat(state.todo.items);
 
       items[action.index].completed = true;
@@ -25,6 +27,7 @@ export default function todoApp(state={}, action) {
       });
 
     case 'DELETE_TODO':
+        console.log("delete todo");
       var items = [].concat(state.todo.items);
 
       items.splice(action.index, 1);

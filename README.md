@@ -2,6 +2,7 @@
 This is a POC of React-Redux-Flux
 
 ## Proximo paso
+Leer en los TODOS en Todo.js line 102. Tira error porque le esta pasando mal el valor, pero por lo menos esta llamando al reducer correspondiente.
 Terminar de mover toda la funcionalidad del Todo (src/js/todo/Todo.js.orig) a la forma react-redux con el connect. Terminar de entender bien como se pasan los datos y como se atachean eventos.
 
 Paso siguiente seria routing para tener multiples aplicaciones.
