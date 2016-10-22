@@ -1,32 +1,31 @@
-var open = require('open');
-var path = require('path');
-var morgan = require('morgan');
-var express = require('express');
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
+import express from 'express';
+import webpack from 'webpack';
+import path from 'path';
+import config from './webpack.dev.config';
+import open from 'open';
 
-var config = require('./webpack.config');
-var compiler = webpack(config);
+/* eslint-disable no-console */
 
-var app = express();
+const port = 3000;
+const app = express();
+const compiler = webpack(config);
 
-app.use(morgan('dev'));
-
-app.use(webpackDevMiddleware(compiler, {
+app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
 }));
 
-app.use(express.static('./dist/'));
+app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function (req, res){
-  res.sendFile(path.resolve(__dirname, './dist/', 'index.html'))
+app.get('*', function(req, res) {
+  res.sendFile(path.join( __dirname, './src/index.html'));
 });
 
-app.listen(3000, function (err) {
+app.listen(port, function(err) {
   if (err) {
-    return console.error(err);
+    console.log(err);
+  } else {
+    open(`http://localhost:${port}`);
   }
-
-  console.log('Web listening at http://localhost:3000/.');
 });
+
