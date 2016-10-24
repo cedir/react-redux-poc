@@ -45,10 +45,10 @@ export default {
   output: {
     path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
-    filename: 'app.min.js'
+    filename: 'bundle.js'
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'js')
+    contentBase: './src'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -56,7 +56,7 @@ export default {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, include: path.join(__dirname, 'src/js/'), loaders: ['babel']},
+      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
       {test: /(\.css)$/, loaders: ['style', 'css']},
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
       {test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'},

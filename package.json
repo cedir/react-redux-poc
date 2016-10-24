@@ -1,8 +1,8 @@
 {
-  "name": "stormpath-react-redux-todo-example-application",
+  "name": "react-redux-poc",
   "version": "0.0.1",
   "description": "React/Redux example todo application.",
-  "homepage": "https://github.com/typerandom/stormpath-react-redux-todo-example-application",
+  "homepage": "https://github.com/cedir/react-redux-poc",
   "author": "Walter",
   "license": "MIT",
   "scripts": {

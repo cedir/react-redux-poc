@@ -5,5 +5,5 @@ const rootReducer = combineReducers({
     todo: todoApp
 });
 
-export default rootReducer
+export default rootReducer;
 

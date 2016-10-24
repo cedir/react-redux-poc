@@ -6,7 +6,7 @@ export const addTodo = function addTodo(message) {
     message: message,
     completed: false
   };
-}
+};
 
 export function completeTodo(index) {
   return {
@@ -27,5 +27,4 @@ export function clearTodo() {
     type: 'CLEAR_TODO'
   };
 }
-
 

@@ -1,6 +1,6 @@
 
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import {addTodo, completeTodo, deleteTodo, clearTodo} from './TodoActions';
 
@@ -9,29 +9,29 @@ import {addTodo, completeTodo, deleteTodo, clearTodo} from './TodoActions';
 
 
 let AddTodoForm = ({ dispatch }) => {
-  let input
+  let input;
 
   return (
     <div>
       <form onSubmit={e => {
-        e.preventDefault()
+        e.preventDefault();
         if (!input.value.trim()) {
-          return
+          return;
         }
-        dispatch(addTodo(input.value))
-        input.value = ''
+        dispatch(addTodo(input.value));
+        input.value = '';
       }}>
         <input ref={node => {
-          input = node
+          input = node;
         }} />
         <button type="submit">
           Add Todo
         </button>
       </form>
     </div>
-  )
-}
-export const AddTodo = connect()(AddTodoForm)
+  );
+};
+export const AddTodo = connect()(AddTodoForm);
 
 
 // TODO ITEM
