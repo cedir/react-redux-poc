@@ -1,14 +1,19 @@
 
+import React, { PropTypes } from 'react';
+import Header from './components/Header';
 
-import React from 'react';
-import {AddTodo, VisibleTodoList} from '../todo/Todo';
+const App = (props) => {
+  return (
+    <div>
+      <Header/>
+      {props.children}
+    </div>
+  );
+};
 
-const App = () => (
-  <div>
-    <AddTodo />
-    <VisibleTodoList />
-  </div>
-);
+App.propTypes = {
+    children: PropTypes.element
+};
 
 export default App;
 

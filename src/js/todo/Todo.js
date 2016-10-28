@@ -109,3 +109,13 @@ export const VisibleTodoList = connect(
     mapDispatchToProps
 )(TodoList)
 
+
+export const TodoView = () => {
+  return (
+    <div>
+      <AddTodo/>
+      <VisibleTodoList/>
+    </div>
+  );
+};
+
