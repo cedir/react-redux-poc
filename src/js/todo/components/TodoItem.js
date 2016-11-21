@@ -1,25 +1,28 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ListItem } from '../../app/components/ListItem';
+import { RemovableListItem } from '../../app/components/RemovableListItem';
 import * as actions from '../TodoActions';
 
 
 function mapStateToProps(state, props) {
   return {
     index: props.index,
-    display: props.item.message,
+    text: props.item.message,
+    showRemove: true,
     style: {textDecoration: props.item.completed ? 'line-through' : 'none'}
   };
 }
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: {
+      click: (item) => dispatch(actions.complete(item)),
+      remove: (item) => dispatch(actions.remove(item)) 
+    }
   };
 }
 
 // TODO ITEM
-export const TodoItem = connect(mapStateToProps, mapDispatchToProps)(ListItem);
+export const TodoItem = connect(mapStateToProps, mapDispatchToProps)(RemovableListItem);
 
 
