@@ -7,9 +7,13 @@ import { TodoList } from './components/TodoList';
 
 export const TodoView = () => {
   return (
-    <div>
-      <AddTodo/>
-      <TodoList/>
+    <div className="panel panel-default">
+      <div className="panel-heading text-right">
+        <AddTodo/>
+      </div>
+      <div className="panel-body">
+        <TodoList/>
+      </div>
     </div>
   );
 };

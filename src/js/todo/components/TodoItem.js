@@ -1,23 +1,25 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { ListItem } from '../../app/components/ListItem';
-import {completeTodo, deleteTodo} from '../TodoActions';
+import * as actions from '../TodoActions';
 
+
+function mapStateToProps(state, props) {
+  return {
+    index: props.index,
+    display: props.item.message,
+    style: {textDecoration: props.item.completed ? 'line-through' : 'none'}
+  };
+}
+
+function mapDispatchToProps(dispatch, props) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
 
 // TODO ITEM
-export const TodoItem = connect(
-  (state, props) => { //mapStateToProps
-    return { 
-      completed: props.item.completed,
-      display: props.item.message 
-    };
-  },
-  (dispatch, props) => { //mapDispatchToProps
-    return {
-      deleteItem: () => dispatch(deleteTodo(props.index)),
-      completeItem: () => dispatch(completeTodo(props.index))
-    };
-  }
-)(ListItem);
+export const TodoItem = connect(mapStateToProps, mapDispatchToProps)(ListItem);
 
 

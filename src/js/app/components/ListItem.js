@@ -1,20 +1,35 @@
 import React, { PropTypes } from 'react';
 
 // TODO ITEM
-export const ListItem = ({ display, completed, deleteItem, completeItem }) => {
-  return (
-    <li>
-        <a href="#" onClick={completeItem} style={{textDecoration: completed ? 'line-through' : 'none'}}>
-            {display}
-        </a>&nbsp;
-        <a href="#" onClick={deleteItem} style={{textDecoration: 'none'}}>[x]</a>
-    </li>
-  );
-};
+export class ListItem extends React.Component {
+    constructor(){
+        super();
+
+        this.complete = this.complete.bind(this);
+        this.remove = this.remove.bind(this);
+    } 
+
+    complete() {
+        this.props.actions.complete(this.props.index);
+    }
+
+    remove() {
+        this.props.actions.remove(this.props.index);
+    }
+
+    render() {    
+        return (
+            <li className="list-group-item">
+                <span onClick={this.complete} style={this.props.style}>{this.props.display}</span>
+                <span onClick={this.remove} className="badge">x</span>
+            </li>
+        );
+    }
+}
 
 ListItem.propTypes = {
-    completed: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
     display: PropTypes.string.isRequired,
-    completeItem: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired
+    actions: PropTypes.object.isRequired,
+    style: PropTypes.object
 };
