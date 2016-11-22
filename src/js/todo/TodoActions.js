@@ -1,3 +1,4 @@
+import TodoApi from './TodoApi';
 
 
 export const add = function(message) {
@@ -26,5 +27,19 @@ export const clear = function() {
   return {
     type: 'CLEAR_TODO'
   };
+};
+
+
+export const fill = function(todos) {
+  return {
+    type: 'FILL_TODOS',
+    todos
+  };
+};
+
+export const loadTodos = function(dispatch) {
+    TodoApi.getAllTodos()
+           .then(todos => dispatch(fill(todos)))
+           ;
 };
 

@@ -30,6 +30,11 @@ export default function todoApp(state={items:[]}, action) {
         items: []
         });
     }
+    case 'FILL_TODOS': {
+      return Object.assign({}, state, {
+        items: action.todos
+        });
+    }
     default:{
       return state;
     }
