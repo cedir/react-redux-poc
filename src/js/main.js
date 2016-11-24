@@ -6,18 +6,11 @@ import routes from './routes';
 import configureStore from './app/configureStore.js';
 //require('./favicon.ico'); // Tell webpack to load favicon.ico
 import { syncHistoryWithStore } from 'react-router-redux';
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import { loadTodos } from './todo/TodoActions';
 
-// TODO el defaultState hay que sacarlo a un archivo a parte
-let defaultState = {
-  todo: {
-    todo:{  //<-- TODO: ver si es asi o hay que sacar un todo
-        items: [],
-        cool: 1
-    }
-  }
-};
-
-const store = configureStore(defaultState);
+const store = configureStore();
+store.dispatch(loadTodos);
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);

@@ -1,53 +1,43 @@
-
-
-export default function todoApp(state={}, action) {
-  let items;
+export default function todoApp(state={items:[]}, action) {
   switch (action.type) {
-    case 'ADD_TODO':
-        console.log("add todo");
-      items = [].concat(state.todo.items);
+    case 'ADD_TODO': {
+      //console.log("add todo");
       return Object.assign({}, state, {
-        todo: {
-          items: items.concat([{
-            message: action.message,
-            completed: false
-          }])
-        }
-      });
-
-    case 'COMPLETE_TODO':
-        console.log("complete todo");
-      items = [].concat(state.todo.items);
-
-      items[action.index].completed = true;
-
+        items: [
+            ...state.items,
+            { message: action.message, completed: false }
+            ]
+        });
+    }
+    case 'COMPLETE_TODO': {
+      //console.log("complete todo");
+      const item = state.items[action.index];
       return Object.assign({}, state, {
-        todo: {
-          items: items
-        }
-      });
-
-    case 'DELETE_TODO':
-        console.log("delete todo");
-      items = [].concat(state.todo.items);
-
-      items.splice(action.index, 1);
-
+        items: state.items.slice(0,action.index)
+          .concat([Object.assign({},item,{completed: !item.completed})])
+          .concat(state.items.slice(action.index+1))
+        });
+    }
+    case 'DELETE_TODO': {
+      //console.log("delete todo");
       return Object.assign({}, state, {
-        todo: {
-          items: items
-        }
-      });
-
-    case 'CLEAR_TODO':
+        items: state.items.slice(0,action.index)
+          .concat(state.items.slice(action.index+1))
+        });
+    }
+    case 'CLEAR_TODO': {
       return Object.assign({}, state, {
-        todo: {
-          items: []
-        }
-      });
-
-    default:
+        items: []
+        });
+    }
+    case 'FILL_TODOS': {
+      return Object.assign({}, state, {
+        items: action.todos
+        });
+    }
+    default:{
       return state;
+    }
   }
 }
 
